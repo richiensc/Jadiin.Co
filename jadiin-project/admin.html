@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - JADIIN.CO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --pink: #D12082; --blue: #1DA1D2; --yellow: #F8E71C; }
+        .bg-pink-c { background-color: var(--pink); }
+        .text-pink-c { color: var(--pink); }
+        .grid-bg { background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 grid-bg min-h-screen">
+
+    <header class="bg-white border-b border-stone-200 sticky top-0 z-50 px-6 py-4 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-pink-c rounded-lg flex items-center justify-center text-white font-black italic shadow-lg text-xl">J</div>
+                <h1 class="text-xl font-black italic tracking-tighter">
+                    <span class="text-pink-c">JAD</span><span class="text-yellow-600">IIN</span><span class="text-blue-500">.CO</span> 
+                    <span class="text-xs font-bold text-stone-400 tracking-widest uppercase ml-2">/ Control Panel</span>
+                </h1>
+            </div>
+            <a href="index.html" target="_blank" class="text-xs font-black uppercase tracking-wider bg-stone-900 text-white px-4 py-2.5 rounded-xl hover:bg-stone-800 transition shadow-md">
+                <i class="fas fa-external-link-alt mr-1"></i> Lihat Website
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8">
+        
+        <div class="md:col-span-2 space-y-8">
+            <div class="bg-white p-8 rounded-[32px] border border-stone-100 shadow-xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-8 h-8 rounded-full bg-pink-100 text-pink-c flex items-center justify-center"><i class="fas fa-edit text-xs"></i></div>
+                    <h3 class="text-lg font-black uppercase tracking-wider">Update Teks Info & Tautan</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Judul Utama (Hero Title)</label>
+                        <input id="inputHeroTitle" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Gambar Utama (Hero Image URL / ImgBB)</label>
+                        <input id="inputHeroImg" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs text-blue-600 font-mono">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tentang Kami (About Us)</label>
+                        <textarea id="inputAboutUs" rows="3" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Visi (Our Vision)</label>
+                        <textarea id="inputVision" rows="4" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Misi (Our Mission — Gunakan Enter untuk baris baru)</label>
+                        <textarea id="inputMission" rows="4" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Alamat Kontak</label>
+                        <input id="inputAddress" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Embed Iframe Google Maps</label>
+                        <input id="inputMap" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs text-blue-600 font-mono">
+                    </div>
+                    
+                    <div class="border-t border-stone-100 sm:col-span-2 pt-4 mt-2">
+                        <h4 class="text-xs font-black uppercase tracking-wider text-stone-700 mb-2"><i class="fas fa-link mr-1"></i> Sosial Media & Marketplace</h4>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-whatsapp text-green-500"></i> No. WhatsApp (Format: 628xxx)</label>
+                        <input id="inputPhone" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-green-500 font-bold" placeholder="Contoh: 62812345678">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-instagram text-pink-600"></i> Link Instagram</label>
+                        <input id="inputIG" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-youtube text-red-600"></i> Link YouTube</label>
+                        <input id="inputYT" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-red-500 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-bag text-orange-500"></i> Link Shopee</label>
+                        <input id="inputShopee" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-orange-500 text-xs">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-cart text-green-600"></i> Link Tokopedia</label>
+                        <input id="inputTokped" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-green-600 text-xs">
+                    </div>
+                </div>
+                
+                <button id="btnSaveInfo" class="w-full mt-6 bg-pink-c text-white font-black uppercase tracking-wider p-4 rounded-xl hover:scale-[1.01] transition shadow-lg text-xs">
+                    <i class="fas fa-save mr-1"></i> Simpan Informasi Utama
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="bg-white p-6 rounded-[32px] border border-stone-100 shadow-xl">
+                <div class="flex items-center space-x-3 mb-5">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center" id="formIcon"><i class="fas fa-plus text-xs"></i></div>
+                    <h3 class="text-sm font-black uppercase tracking-wider" id="formFormTitle">Tambah Item Baru</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tipe / Kategori Item</label>
+                        <select id="itemType" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-blue-500">
+                            <option value="product">Product (Nama & Gambar)</option>
+                            <option value="project">Selected Projects (Nama & Gambar)</option>
+                            <option value="gallery">Gallery Project (Gambar & Keterangan)</option>
+                            <option value="review">Client Review (Nama, Gambar & Ulasan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label id="lblTitle" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Nama Produk / Judul Konten</label>
+                        <input id="itemTitle" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 font-medium text-sm">
+                    </div>
+                    <div>
+                        <label id="lblVal" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Gambar (URL / ImgBB Code)</label>
+                        <input id="itemVal" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs text-blue-600 font-mono">
+                    </div>
+                    <div id="extraContentField" class="hidden">
+                        <label id="lblExtra" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Kalimat Ulasan / Keterangan Project</label>
+                        <textarea id="itemExtra" rows="3" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs font-medium"></textarea>
+                    </div>
+                    
+                    <div class="flex flex-col gap-2">
+                        <button id="btnAddItem" class="w-full bg-blue-500 text-white font-black uppercase tracking-wider p-3.5 rounded-xl hover:bg-blue-600 transition shadow-md text-xs">
+                            <i class="fas fa-plus-circle mr-1"></i> Tambahkan Data Item
+                        </button>
+                        <button id="btnCancelEdit" class="w-full bg-stone-200 text-stone-700 font-black uppercase tracking-wider p-2.5 rounded-xl hover:bg-stone-300 transition text-xs hidden">
+                            Batal Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[32px] border border-stone-100 shadow-xl flex flex-col max-h-[500px]">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-500 flex items-center justify-center"><i class="fas fa-folder-open text-xs"></i></div>
+                    <h3 class="text-sm font-black uppercase tracking-wider">Manajer Koleksi Data</h3>
+                </div>
+                <div id="dataManager" class="space-y-2 overflow-y-auto flex-1 pr-1 border-t pt-2">
+                    <div class="text-center py-4 text-stone-300 font-bold text-xs uppercase tracking-widest animate-pulse">Menghubungkan ke database...</div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        const typeSelect = document.getElementById('itemType');
+        const lblTitle = document.getElementById('lblTitle');
+        const lblVal = document.getElementById('lblVal');
+        const extraField = document.getElementById('extraContentField');
+        const lblExtra = document.getElementById('lblExtra');
+
+        typeSelect.addEventListener('change', () => {
+            const val = typeSelect.value;
+            extraField.classList.add('hidden');
+            
+            if (val === 'product') {
+                lblTitle.innerText = "Nama Produk Ready";
+                lblVal.innerText = "Link Gambar Produk (ImgBB URL)";
+            } else if (val === 'project') {
+                lblTitle.innerText = "Nama Selected Project";
+                lblVal.innerText = "Link Gambar Project Utama (ImgBB URL)";
+            } else if (val === 'gallery') {
+                lblTitle.innerText = "Nama / Kategori Ruangan Project";
+                lblVal.innerText = "Link Gambar Unit Gallery (ImgBB URL)";
+                lblExtra.innerText = "Keterangan Detail Hasil Pekerjaan Project";
+                extraField.classList.remove('hidden');
+            } else if (val === 'review') {
+                lblTitle.innerText = "Nama Klien (Contoh: Ibu Rina - Jakarta)";
+                lblVal.innerText = "Link Foto Profil Klien / Hasil Terpasang";
+                lblExtra.innerText = "Kalimat Testimoni Ulasan Kepuasan Klien";
+                extraField.classList.remove('hidden');
+            }
+        });
+        typeSelect.dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

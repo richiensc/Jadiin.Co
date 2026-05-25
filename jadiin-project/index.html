@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadiin Co - Creative Interior & Exterior</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --pink: #D12082; --blue: #1DA1D2; --yellow: #F8E71C; }
+        .text-pink-c { color: var(--pink); }
+        .bg-pink-c { background-color: var(--pink); }
+        .grid-bg { background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+        html { scroll-behavior: smooth; }
+        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-link:hover { color: var(--pink); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-white text-stone-900 overflow-x-hidden grid-bg">
+
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-stone-100 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3 shrink-0">
+                <h1 class="text-2xl font-black italic tracking-tighter hidden sm:block">
+                    <span class="text-pink-c">JAD</span><span class="text-yellow-500">IIN</span><span class="text-blue-500">.CO</span>
+                </h1>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#hero" class="nav-link">Beranda</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#projects" class="nav-link">Project</a>
+                <a href="#gallery-section" class="nav-link">Gallery</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 border-r pr-4 border-stone-200">
+                    <a id="waTopLink" href="#" target="_blank" class="text-xl text-stone-400 hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a id="igLink" href="#" target="_blank" class="text-xl text-stone-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a id="ytLink" href="#" target="_blank" class="text-xl text-stone-400 hover:text-red-600 transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="flex space-x-2">
+                    <a id="shopeeLink" href="#" target="_blank" class="bg-orange-500 text-white p-2 rounded-lg hover:scale-105 transition shadow-sm">
+                        <span class="text-[10px] font-black uppercase px-2">Shopee</span>
+                    </a>
+                    <a id="tokopediaLink" href="#" target="_blank" class="bg-green-600 text-white p-2 rounded-lg hover:scale-105 transition shadow-sm">
+                        <span class="text-[10px] font-black uppercase px-2">Tokopedia</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="min-h-screen flex items-center px-6 pt-24">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            <div data-aos="fade-right">
+                <h2 id="displayHeroTitle" class="text-7xl md:text-8xl font-black italic leading-[0.9] mb-6 uppercase tracking-tighter"></h2>
+                <div class="bg-yellow-400 h-2 w-20 mb-8"></div>
+                <p id="displayAboutUs" class="text-lg text-stone-600 mb-8 leading-relaxed font-medium max-w-lg"></p>
+            </div>
+            <div data-aos="zoom-in" class="relative">
+                <img id="displayHeroImg" src="" class="rounded-[60px] shadow-2xl w-full h-[550px] object-cover border-[12px] border-white rotate-1">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 bg-stone-900 text-white rounded-[60px] mx-4 px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-20">
+            <div data-aos="fade-up">
+                <h3 class="text-pink-c font-black text-4xl italic mb-6">OUR VISION</h3>
+                <p id="displayVision" class="text-stone-300 text-xl italic leading-relaxed"></p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-blue-400 font-black text-4xl italic mb-6">OUR MISSION</h3>
+                <div id="displayMission" class="text-stone-400 text-lg space-y-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-5xl font-black italic uppercase mb-16 text-center">Selected <span class="text-pink-c">Projects</span></h3>
+            <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24"></div>
+            
+            <div id="gallery-section" class="border-t border-stone-100 pt-20">
+                <h4 class="text-3xl font-black italic uppercase mb-2 text-center">Project <span class="text-blue-500">Gallery</span></h4>
+                <p class="text-center text-xs font-bold uppercase tracking-widest text-stone-400 mb-10">Gunakan tombol atau geser untuk melihat portfolio ruang dokumentasi lainnya</p>
+                
+                <div class="relative w-full group">
+                    <button id="prevGallery" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-pink-c hover:text-white text-stone-800 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100 md:opacity-100">
+                        <i class="fas fa-chevron-left text-lg"></i>
+                    </button>
+                    
+                    <div class="w-full overflow-hidden px-2">
+                        <div id="gallerySlider" class="flex flex-nowrap space-x-6 overflow-x-auto pb-6 no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing">
+                        </div>
+                    </div>
+
+                    <button id="nextGallery" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-pink-c hover:text-white text-stone-800 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100 md:opacity-100">
+                        <i class="fas fa-chevron-right text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-32 bg-stone-900 text-white rounded-[60px] mx-4 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-5xl font-black italic uppercase mb-16 text-center">Ready <span class="text-blue-400">Products</span></h3>
+            <div id="readyProductGrid" class="grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-5xl font-black italic uppercase mb-4 text-center">Client <span class="text-pink-c">Reviews</span></h3>
+            <p class="text-center text-xs font-bold uppercase tracking-widest text-stone-400 mb-16">Apa kata mereka mengenai kepuasan layanan Jadiin.co</p>
+            
+            <div class="relative w-full group">
+                <button id="prevReview" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-pink-c hover:text-white text-stone-800 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100 md:opacity-100">
+                    <i class="fas fa-chevron-left text-lg"></i>
+                </button>
+
+                <div class="w-full overflow-hidden px-2">
+                    <div id="reviewSliderContainer" class="overflow-x-auto pb-6 no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing">
+                        <div id="reviewRowUtuh" class="grid grid-rows-2 grid-flow-col gap-6 auto-cols-max">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="nextReview" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-pink-c hover:text-white text-stone-800 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100 md:opacity-100">
+                    <i class="fas fa-chevron-right text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto bg-stone-900 text-white rounded-[50px] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden" data-aos="fade-up">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-pink-c/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+            <h3 class="text-3xl md:text-4xl font-black italic uppercase mb-4 tracking-tight">Berlangganan Info <span class="text-yellow-400">Kreatif</span></h3>
+            <p class="text-stone-400 text-sm max-w-md mx-auto mb-8 font-medium">Dapatkan update trend interior, eksterior, penawaran harga project, serta produk katalog terbaru langsung dari Jadiin.co.</p>
+            <form onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!'); this.reset();" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+                <input type="email" required placeholder="Masukkan alamat email Anda..." class="flex-1 bg-stone-800 border border-stone-700 px-6 py-4 rounded-2xl text-white placeholder-stone-500 focus:outline-none focus:border-pink-500 font-medium text-sm">
+                <button type="submit" class="bg-pink-c hover:bg-pink-600 text-white font-black uppercase text-xs tracking-wider px-8 py-4 rounded-2xl transition duration-300 shadow-lg shrink-0">Join Us</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-32 px-6 border-t border-stone-800 bg-stone-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16 text-left">
+                <div class="space-y-6" data-aos="fade-right">
+                    <h3 class="text-4xl md:text-5xl font-black italic uppercase leading-none text-white">Siap Jadiin Mimpi Kamu?</h3>
+                    <div class="bg-pink-c h-1 w-16"></div>
+                    
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-white text-stone-900 flex items-center justify-center shrink-0 shadow-md"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4 class="text-[10px] font-black uppercase text-stone-400 tracking-wider">Alamat Kantor Utama</h4>
+                                <p id="displayAddress" class="text-stone-300 font-bold uppercase tracking-wide text-sm mt-0.5 leading-relaxed"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-white text-stone-900 flex items-center justify-center shrink-0 shadow-md"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4 class="text-[10px] font-black uppercase text-stone-400 tracking-wider">Email Korespondensi</h4>
+                                <p class="text-stone-300 font-bold text-sm mt-0.5">jadiin526@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center md:justify-end" data-aos="fade-left">
+                    <div class="w-full max-w-[450px] aspect-square rounded-[40px] overflow-hidden border-8 border-stone-200 shadow-2xl bg-stone-800">
+                        <iframe id="displayMap" src="" width="100%" height="100%" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="font-black text-[10px] tracking-[0.4em] text-stone-500 uppercase text-center border-t border-stone-800 pt-10">
+                © 2026 JADIIN.CO by JENAWA PROJECT
+            </div>
+        </div>
+    </footer>
+
+    <a id="floatWA" href="#" target="_blank" class="fixed bottom-8 right-8 z-[200] bg-green-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition duration-300">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script type="module" src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000 });</script>
+</body>
+</html>
