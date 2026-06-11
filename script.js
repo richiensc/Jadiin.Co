@@ -5,7 +5,8 @@ const firebaseConfig = {
   apiKey: "AIzaSyA8XIuG2hYT7j4U4eqJsjchNjrX10GQVo8",
   authDomain: "jadiin-project-f6d1b.firebaseapp.com",
   projectId: "jadiin-project-f6d1b",
-  databaseURL: "https://jadiin-project-f6d1b-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  // Perbaikan koma yang hilang di bawah ini dan dialihkan penuh menggunakan Firestore SDK
+  databaseURL: "https://jadiin-project-f6d1b-default-rtdb.asia-southeast1.firebasedatabase.app/",
   storageBucket: "jadiin-project-f6d1b.firebasestorage.app",
   messagingSenderId: "358470574404",
   appId: "1:358470574404:web:bd8f9d6d8644a9a7547711"
@@ -26,7 +27,7 @@ function cleanUrl(rawUrl) {
     if (clean.includes('drive.google.com/file/d/')) {
         const match = clean.match(/\/d\/([^\/]+)/);
         if (match && match[1]) {
-            return `http://googleusercontent.com/profile/picture/${match[1]}`;
+            return `https://docs.google.com/uc?export=view&id=${match[1]}`;
         }
     }
     return clean;
@@ -144,7 +145,7 @@ if (document.getElementById('displayAboutUs')) {
                         <h4 class="p-6 font-black uppercase italic text-stone-800">${itm.title}</h4>
                     </div>`;
             
-            // Kategori 2: Ready Products (UPDATE: Disesuaikan dengan tema background bg-stone-900 index.html)
+            // Kategori 2: Ready Products
             } else if (itm.type === 'product' && prGrid) {
                 prGrid.innerHTML += `
                     <div class="bg-stone-800 p-5 rounded-[40px] border border-stone-700 shadow-md transition duration-300 hover:scale-[1.03]" data-aos="zoom-in">
@@ -326,8 +327,10 @@ if (document.getElementById('btnSaveInfo')) {
 
     window.deleteItem = async (id) => {
         if (confirm("Hapus item secara permanen?")) {
-            await deleteDoc(doc(db, "items", id));
-            if(currentEditId === id) resetItemForm();
+            try {
+                await deleteDoc(doc(db, "items", id));
+                if(currentEditId === id) resetItemForm();
+            } catch (e) { alert("Gagal menghapus: " + e.message); }
         }
     };
 }
