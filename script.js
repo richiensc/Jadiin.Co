@@ -5,6 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyA8XIuG2hYT7j4U4eqJsjchNjrX10GQVo8",
   authDomain: "jadiin-project-f6d1b.firebaseapp.com",
   projectId: "jadiin-project-f6d1b",
+  databaseURL: "https://jadiin-project-f6d1b-default-rtdb.asia-southeast1.firebasedatabase.app/"
   storageBucket: "jadiin-project-f6d1b.firebasestorage.app",
   messagingSenderId: "358470574404",
   appId: "1:358470574404:web:bd8f9d6d8644a9a7547711"
