@@ -154,6 +154,9 @@ window.openArticleModal = (id) => {
     document.body.appendChild(modal);
   }
 
+  // [PERBAIKAN]: Utamakan item.articleFull, jika kosong baru gunakan item.extra
+  const fullContent = item.articleFull || item.extra || 'Tidak ada isi artikel.';
+
   modal.innerHTML = `
     <div class="bg-stone-900 border border-stone-700/80 rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl text-white">
       <button onclick="closeArticleModal()" class="absolute top-5 right-5 w-10 h-10 bg-stone-800 hover:bg-yellow-400 hover:text-stone-900 text-stone-300 rounded-full flex items-center justify-center font-bold text-lg transition duration-200">
@@ -163,7 +166,7 @@ window.openArticleModal = (id) => {
       <h3 class="text-2xl md:text-3xl font-black text-white mt-3 mb-4 leading-tight">${item.title}</h3>
       <img src="${cleanUrl(item.val)}" class="w-full h-64 md:h-80 object-cover rounded-2xl mb-6 border border-stone-800" alt="${item.title}">
       <div class="text-stone-300 text-sm md:text-base leading-relaxed whitespace-pre-line space-y-4">
-        ${item.extra || 'Tidak ada isi artikel.'}
+        ${fullContent}
       </div>
       <div class="mt-8 pt-4 border-t border-stone-800 flex justify-end">
         <button onclick="closeArticleModal()" class="px-6 py-2.5 bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">Tutup</button>
@@ -280,7 +283,7 @@ if (document.getElementById('displayAboutUs')) {
               </div>
             </div>`;
 
-        // Kategori 5: Artikel (Menggunakan Modal Kustom Pro)
+        // Kategori 5: Artikel
         } else if (itm.type === 'article' && artGrid) {
           articlesCache[id] = itm; // Simpan ke cache
           artGrid.innerHTML += `
@@ -348,6 +351,10 @@ if (document.getElementById('btnSaveInfo')) {
     const val = cleanUrl(document.getElementById('itemVal').value); 
     const type = document.getElementById('itemType').value;
     const extra = document.getElementById('itemExtra') ? document.getElementById('itemExtra').value : "";
+    
+    // [PERBAIKAN]: Membaca elemen input artikel penuh (misal itemArticleFull atau textarea tambahan)
+    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
+    const articleFull = articleFullElem ? articleFullElem.value : "";
 
     if (!title || !val) return alert("Harap isi Judul/Nama dan Gambar item!");
 
@@ -357,7 +364,8 @@ if (document.getElementById('btnSaveInfo')) {
           type,
           title,
           val,
-          extra: extra || ""
+          extra: extra || "",
+          articleFull: articleFull || extra || "" // Menyimpan teks penuh artikel
         });
         alert("ITEM BERHASIL DIPERBARUI!");
         resetItemForm();
@@ -367,7 +375,8 @@ if (document.getElementById('btnSaveInfo')) {
           type, 
           title, 
           val, 
-          extra: extra || "", 
+          extra: extra || "",
+          articleFull: articleFull || extra || "", // Menyimpan teks penuh artikel
           createdAt: new Date().toISOString() 
         });
         alert("ITEM BERHASIL DITAMBAHKAN!");
@@ -382,6 +391,9 @@ if (document.getElementById('btnSaveInfo')) {
     document.getElementById('itemTitle').value = "";
     document.getElementById('itemVal').value = "";
     if (document.getElementById('itemExtra')) document.getElementById('itemExtra').value = "";
+    
+    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
+    if (articleFullElem) articleFullElem.value = "";
     
     document.getElementById('formFormTitle').innerText = "Tambah Item Baru";
     document.getElementById('formIcon').innerHTML = `<i class="fas fa-plus text-xs"></i>`;
@@ -406,7 +418,8 @@ if (document.getElementById('btnSaveInfo')) {
             title: itm.title || "",
             val: itm.val || "",
             type: itm.type || "",
-            extra: itm.extra || ""
+            extra: itm.extra || "",
+            articleFull: itm.articleFull || ""
           }).replace(/"/g, '&quot;');
 
           manager.innerHTML += `
@@ -437,6 +450,11 @@ if (document.getElementById('btnSaveInfo')) {
     document.getElementById('itemVal').value = data.val; 
     if (document.getElementById('itemExtra')) {
       document.getElementById('itemExtra').value = data.extra;
+    }
+    
+    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
+    if (articleFullElem) {
+      articleFullElem.value = data.articleFull || data.extra || "";
     }
 
     document.getElementById('formFormTitle').innerText = "Edit/Ganti Gambar Item";
