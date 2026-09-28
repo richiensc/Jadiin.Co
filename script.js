@@ -20,6 +20,9 @@ const auth = getAuth(app); // Inisialisasi Auth
 
 let currentEditId = null;
 
+// Menyimpan cache artikel untuk kebutuhan Modal
+let articlesCache = {};
+
 // ==========================================
 // KONTROL SYSTEM AUTHENTICATION & LOGIN STATUS
 // ==========================================
@@ -29,11 +32,9 @@ const adminContent = document.getElementById('adminContent');
 // Pengecekan status login secara realtime oleh Firebase
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Jika karyawan sudah login
     if (loginSection) loginSection.classList.add('hidden');
     if (adminContent) adminContent.classList.remove('hidden');
   } else {
-    // Jika belum login / sudah logout
     if (loginSection) loginSection.classList.remove('hidden');
     if (adminContent) adminContent.classList.add('hidden');
   }
@@ -139,11 +140,51 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
+// UTILITY: MODAL ARTIKEL PRO
+// ==========================================
+window.openArticleModal = (id) => {
+  const item = articlesCache[id];
+  if (!item) return;
+
+  let modal = document.getElementById('articleModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'articleModal';
+    modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300';
+    document.body.appendChild(modal);
+  }
+
+  modal.innerHTML = `
+    <div class="bg-stone-900 border border-stone-700/80 rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl text-white">
+      <button onclick="closeArticleModal()" class="absolute top-5 right-5 w-10 h-10 bg-stone-800 hover:bg-yellow-400 hover:text-stone-900 text-stone-300 rounded-full flex items-center justify-center font-bold text-lg transition duration-200">
+        &times;
+      </button>
+      <span class="text-[10px] font-black uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full">Artikel</span>
+      <h3 class="text-2xl md:text-3xl font-black text-white mt-3 mb-4 leading-tight">${item.title}</h3>
+      <img src="${cleanUrl(item.val)}" class="w-full h-64 md:h-80 object-cover rounded-2xl mb-6 border border-stone-800" alt="${item.title}">
+      <div class="text-stone-300 text-sm md:text-base leading-relaxed whitespace-pre-line space-y-4">
+        ${item.extra || 'Tidak ada isi artikel.'}
+      </div>
+      <div class="mt-8 pt-4 border-t border-stone-800 flex justify-end">
+        <button onclick="closeArticleModal()" class="px-6 py-2.5 bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">Tutup</button>
+      </div>
+    </div>
+  `;
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeArticleModal = () => {
+  const modal = document.getElementById('articleModal');
+  if (modal) modal.classList.add('hidden');
+  document.body.style.overflow = 'auto';
+};
+
+// ==========================================
 // 1. DISTRIBUSI REALTIME DATABASE KE INDEX (PUBLIC)
 // ==========================================
 if (document.getElementById('displayAboutUs')) {
   
-  // Membaca data web/content dari Realtime Database
   onValue(ref(db, "web/content"), (snap) => {
     if (snap.exists()) {
       const d = snap.val();
@@ -174,20 +215,21 @@ if (document.getElementById('displayAboutUs')) {
     }
   });
 
-  // Membaca koleksi items dari Realtime Database
   onValue(ref(db, "items"), (snap) => {
     const pGrid = document.getElementById('projectGrid');
     const prGrid = document.getElementById('readyProductGrid'); 
     const galSlider = document.getElementById('gallerySlider');
     const rRowUtuh = document.getElementById('reviewRowUtuh'); 
-    const artGrid = document.getElementById('articleGrid'); // [REVISI]: Inisialisasi kontainer Artikel
+    const artGrid = document.getElementById('articleGrid');
     
     if (pGrid) pGrid.innerHTML = ""; 
     if (prGrid) prGrid.innerHTML = "";
     if (galSlider) galSlider.innerHTML = "";
     if (rRowUtuh) rRowUtuh.innerHTML = "";
-    if (artGrid) artGrid.innerHTML = ""; // [REVISI]: Reset kontainer Artikel
+    if (artGrid) artGrid.innerHTML = "";
     
+    articlesCache = {}; // Reset cache
+
     if (snap.exists()) {
       snap.forEach((childSnap) => {
         const id = childSnap.key;
@@ -238,8 +280,9 @@ if (document.getElementById('displayAboutUs')) {
               </div>
             </div>`;
 
-        // Kategori 5: Artikel [REVISI]: Ditambahkan logika render untuk Artikel
+        // Kategori 5: Artikel (Menggunakan Modal Kustom Pro)
         } else if (itm.type === 'article' && artGrid) {
+          articlesCache[id] = itm; // Simpan ke cache
           artGrid.innerHTML += `
             <div class="bg-stone-800 rounded-[32px] p-6 border border-stone-700/50 flex flex-col justify-between hover:border-yellow-400/50 transition duration-300">
               <div>
@@ -248,7 +291,7 @@ if (document.getElementById('displayAboutUs')) {
                 <h4 class="text-xl font-black text-white mt-3 leading-snug">${itm.title}</h4>
                 <p class="text-stone-400 text-xs mt-2 line-clamp-3">${itm.extra || ''}</p>
               </div>
-              <button onclick="alert('${(itm.extra || '').replace(/'/g, "\\'")}')" class="mt-6 w-full py-3 bg-stone-700 hover:bg-yellow-400 hover:text-stone-900 text-white font-black uppercase text-[10px] tracking-wider rounded-xl transition duration-300">
+              <button onclick="openArticleModal('${id}')" class="mt-6 w-full py-3 bg-stone-700 hover:bg-yellow-400 hover:text-stone-900 text-white font-black uppercase text-[10px] tracking-wider rounded-xl transition duration-300">
                 Baca Selengkapnya
               </button>
             </div>`;
