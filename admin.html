@@ -31,7 +31,7 @@
                     <i class="fas fa-external-link-alt mr-1"></i> Lihat Website
                 </a>
                 
-                <!-- Tombol Logout (Hanya tampil jika sudah login) -->
+                <!-- Tombol Logout -->
                 <button id="btnLogout" class="hidden text-xs font-black uppercase tracking-wider bg-red-500 text-white px-4 py-2.5 rounded-xl hover:bg-red-600 transition shadow-md">
                     <i class="fas fa-sign-out-alt mr-1"></i> Logout
                 </button>
@@ -40,24 +40,24 @@
     </header>
 
     <!-- ======================================================= -->
-    <!-- 1. FORM LOGIN ADMIN (Tampil jika karyawan belum login)  -->
+    <!-- 1. FORM LOGIN ADMIN                                    -->
     <!-- ======================================================= -->
     <div id="loginSection" class="max-w-md mx-auto my-16 p-8 bg-white rounded-[32px] border border-stone-200 shadow-2xl">
         <div class="text-center mb-6">
             <div class="w-12 h-12 bg-pink-100 text-pink-c rounded-2xl mx-auto flex items-center justify-center mb-3 shadow-sm">
                 <i class="fas fa-user-shield text-xl"></i>
             </div>
-            <h3 class="text-xl font-black uppercase tracking-wider text-stone-800">Login Admin</h3>
+            <h2 class="text-xl font-black uppercase tracking-wider text-stone-800">Login Admin</h2>
             <p class="text-xs text-stone-400 mt-1 font-medium">Masukkan kredensial internal untuk mengelola konten.</p>
         </div>
         
         <div class="space-y-4">
             <div>
-                <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Email Admin</label>
+                <label for="adminEmail" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Email Admin</label>
                 <input type="email" id="adminEmail" placeholder="admin@jadiin.co" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium text-sm">
             </div>
             <div>
-                <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Password</label>
+                <label for="adminPassword" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Password</label>
                 <input type="password" id="adminPassword" placeholder="••••••••" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium text-sm">
             </div>
             <button id="btnLogin" class="w-full bg-pink-c text-white font-black uppercase tracking-wider p-3.5 rounded-xl hover:scale-[1.01] transition shadow-lg text-xs mt-2">
@@ -67,7 +67,7 @@
     </div>
 
     <!-- ======================================================= -->
-    <!-- 2. MAIN ADMIN CONTENT (Hanya tampil jika sudah login)   -->
+    <!-- 2. MAIN ADMIN CONTENT                                  -->
     <!-- ======================================================= -->
     <main id="adminContent" class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 hidden">
         
@@ -81,31 +81,31 @@
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Judul Utama (Hero Title)</label>
+                        <label for="inputHeroTitle" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Judul Utama (Hero Title)</label>
                         <input id="inputHeroTitle" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Gambar Utama (Hero Image URL / ImgBB)</label>
+                        <label for="inputHeroImg" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Gambar Utama (Hero Image URL / ImgBB)</label>
                         <input id="inputHeroImg" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs text-blue-600 font-mono">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tentang Kami (About Us)</label>
+                        <label for="inputAboutUs" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tentang Kami (About Us)</label>
                         <textarea id="inputAboutUs" rows="3" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Visi (Our Vision)</label>
+                        <label for="inputVision" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Visi (Our Vision)</label>
                         <textarea id="inputVision" rows="4" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Misi (Our Mission — Gunakan Enter untuk baris baru)</label>
+                        <label for="inputMission" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Misi (Our Mission — Gunakan Enter untuk baris baru)</label>
                         <textarea id="inputMission" rows="4" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium"></textarea>
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Alamat Kontak</label>
+                        <label for="inputAddress" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Alamat Kontak</label>
                         <input id="inputAddress" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 font-medium">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Embed Iframe Google Maps</label>
+                        <label for="inputMap" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Embed Iframe Google Maps</label>
                         <input id="inputMap" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs text-blue-600 font-mono">
                     </div>
                     
@@ -113,23 +113,23 @@
                         <h4 class="text-xs font-black uppercase tracking-wider text-stone-700 mb-2"><i class="fas fa-link mr-1"></i> Sosial Media & Marketplace</h4>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-whatsapp text-green-500"></i> No. WhatsApp (Format: 628xxx)</label>
+                        <label for="inputPhone" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-whatsapp text-green-500"></i> No. WhatsApp (Format: 628xxx)</label>
                         <input id="inputPhone" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-green-500 font-bold" placeholder="Contoh: 62812345678">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-instagram text-pink-600"></i> Link Instagram</label>
+                        <label for="inputIG" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-instagram text-pink-600"></i> Link Instagram</label>
                         <input id="inputIG" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-pink-500 text-xs">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-youtube text-red-600"></i> Link YouTube</label>
+                        <label for="inputYT" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fab fa-youtube text-red-600"></i> Link YouTube</label>
                         <input id="inputYT" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-red-500 text-xs">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-bag text-orange-500"></i> Link Shopee</label>
+                        <label for="inputShopee" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-bag text-orange-500"></i> Link Shopee</label>
                         <input id="inputShopee" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-orange-500 text-xs">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-cart text-green-600"></i> Link Tokopedia</label>
+                        <label for="inputTokped" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1"><i class="fas fa-shopping-cart text-green-600"></i> Link Tokopedia</label>
                         <input id="inputTokped" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-green-600 text-xs">
                     </div>
                 </div>
@@ -140,7 +140,7 @@
             </div>
         </div>
 
-        <!-- KOLOM KANAN: TAMBAH ITEM (PRODUK, PROJECT, GALLERY, REVIEW, ARTIKEL) & DATA MANAGER -->
+        <!-- KOLOM KANAN: TAMBAH ITEM & DATA MANAGER -->
         <div class="space-y-8">
             
             <!-- FORM TAMBAH / EDIT ITEM KOLEKSI -->
@@ -152,7 +152,7 @@
                 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tipe / Kategori Item</label>
+                        <label for="itemType" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Tipe / Kategori Item</label>
                         <select id="itemType" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-blue-500">
                             <option value="product">Product (Nama & Gambar)</option>
                             <option value="project">Selected Projects (Nama & Gambar)</option>
@@ -163,24 +163,24 @@
                     </div>
                     
                     <div>
-                        <label id="lblTitle" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Nama Produk / Judul Konten</label>
+                        <label id="lblTitle" for="itemTitle" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Nama Produk / Judul Konten</label>
                         <input id="itemTitle" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 font-medium text-sm">
                     </div>
                     
                     <div>
-                        <label id="lblVal" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Gambar (URL / ImgBB Code)</label>
+                        <label id="lblVal" for="itemVal" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Gambar (URL / ImgBB Code)</label>
                         <input id="itemVal" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs text-blue-600 font-mono">
                     </div>
 
                     <!-- FIELD EKSTRA UNTUK ULASAN / GALLERY / SUMMARY ARTIKEL -->
                     <div id="extraContentField" class="hidden">
-                        <label id="lblExtra" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Kalimat Ulasan / Keterangan Project</label>
+                        <label id="lblExtra" for="itemExtra" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Kalimat Ulasan / Keterangan Project</label>
                         <textarea id="itemExtra" rows="3" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs font-medium"></textarea>
                     </div>
 
                     <!-- FIELD KHUSUS KONTEN LENGKAP ARTIKEL -->
                     <div id="articleFullContentField" class="hidden">
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Lengkap Artikel / Berita</label>
+                        <label for="itemArticleFull" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Lengkap Artikel / Berita</label>
                         <textarea id="itemArticleFull" rows="6" placeholder="Tuliskan isi artikel lengkap di sini..." class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs font-medium"></textarea>
                     </div>
                     
@@ -195,7 +195,7 @@
                 </div>
             </div>
 
-            <!-- MANAJER KOLEKSI DATA (LIST ITEM DARI DATABASE) -->
+            <!-- MANAJER KOLEKSI DATA -->
             <div class="bg-white p-6 rounded-[32px] border border-stone-100 shadow-xl flex flex-col max-h-[500px]">
                 <div class="flex items-center space-x-3 mb-4">
                     <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-500 flex items-center justify-center"><i class="fas fa-folder-open text-xs"></i></div>
@@ -209,46 +209,50 @@
         
     </main>
 
-    <!-- SCRIPT LOGIKA FORM DOM -->
+    <!-- LOGIKA DOM -->
     <script type="module" src="script.js"></script>
     <script>
-        const typeSelect = document.getElementById('itemType');
-        const lblTitle = document.getElementById('lblTitle');
-        const lblVal = document.getElementById('lblVal');
-        const extraField = document.getElementById('extraContentField');
-        const lblExtra = document.getElementById('lblExtra');
-        const articleFullField = document.getElementById('articleFullContentField');
+        document.addEventListener('DOMContentLoaded', () => {
+            const typeSelect = document.getElementById('itemType');
+            const lblTitle = document.getElementById('lblTitle');
+            const lblVal = document.getElementById('lblVal');
+            const extraField = document.getElementById('extraContentField');
+            const lblExtra = document.getElementById('lblExtra');
+            const articleFullField = document.getElementById('articleFullContentField');
 
-        typeSelect.addEventListener('change', () => {
-            const val = typeSelect.value;
-            extraField.classList.add('hidden');
-            articleFullField.classList.add('hidden');
-            
-            if (val === 'product') {
-                lblTitle.innerText = "Nama Produk Ready";
-                lblVal.innerText = "Link Gambar Produk (ImgBB URL)";
-            } else if (val === 'project') {
-                lblTitle.innerText = "Nama Selected Project";
-                lblVal.innerText = "Link Gambar Project Utama (ImgBB URL)";
-            } else if (val === 'gallery') {
-                lblTitle.innerText = "Nama / Kategori Ruangan Project";
-                lblVal.innerText = "Link Gambar Unit Gallery (ImgBB URL)";
-                lblExtra.innerText = "Keterangan Detail Hasil Pekerjaan Project";
-                extraField.classList.remove('hidden');
-            } else if (val === 'review') {
-                lblTitle.innerText = "Nama Klien (Contoh: Ibu Rina - Jakarta)";
-                lblVal.innerText = "Link Foto Profil Klien / Hasil Terpasang";
-                lblExtra.innerText = "Kalimat Testimoni Ulasan Kepuasan Klien";
-                extraField.classList.remove('hidden');
-            } else if (val === 'article') {
-                lblTitle.innerText = "Judul Artikel / Blog";
-                lblVal.innerText = "Link Gambar Sampul Artikel (ImgBB URL)";
-                lblExtra.innerText = "Ringkasan Singkat Artikel (Terpampang di halaman depan)";
-                extraField.classList.remove('hidden');
-                articleFullField.classList.remove('hidden');
+            if (typeSelect) {
+                typeSelect.addEventListener('change', () => {
+                    const val = typeSelect.value;
+                    extraField.classList.add('hidden');
+                    articleFullField.classList.add('hidden');
+                    
+                    if (val === 'product') {
+                        lblTitle.innerText = "Nama Produk Ready";
+                        lblVal.innerText = "Link Gambar Produk (ImgBB URL)";
+                    } else if (val === 'project') {
+                        lblTitle.innerText = "Nama Selected Project";
+                        lblVal.innerText = "Link Gambar Project Utama (ImgBB URL)";
+                    } else if (val === 'gallery') {
+                        lblTitle.innerText = "Nama / Kategori Ruangan Project";
+                        lblVal.innerText = "Link Gambar Unit Gallery (ImgBB URL)";
+                        lblExtra.innerText = "Keterangan Detail Hasil Pekerjaan Project";
+                        extraField.classList.remove('hidden');
+                    } else if (val === 'review') {
+                        lblTitle.innerText = "Nama Klien (Contoh: Ibu Rina - Jakarta)";
+                        lblVal.innerText = "Link Foto Profil Klien / Hasil Terpasang";
+                        lblExtra.innerText = "Kalimat Testimoni Ulasan Kepuasan Klien";
+                        extraField.classList.remove('hidden');
+                    } else if (val === 'article') {
+                        lblTitle.innerText = "Judul Artikel / Blog";
+                        lblVal.innerText = "Link Gambar Sampul Artikel (ImgBB URL)";
+                        lblExtra.innerText = "Ringkasan Singkat Artikel (Terpampang di halaman depan)";
+                        extraField.classList.remove('hidden');
+                        articleFullField.classList.remove('hidden');
+                    }
+                });
+                typeSelect.dispatchEvent(new Event('change'));
             }
         });
-        typeSelect.dispatchEvent(new Event('change'));
     </script>
 </body>
 </html>
