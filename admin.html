@@ -71,6 +71,7 @@
     <!-- ======================================================= -->
     <main id="adminContent" class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 hidden">
         
+        <!-- KOLOM KIRI: EDIT TEKS UTAMA & SOSIAL MEDIA -->
         <div class="md:col-span-2 space-y-8">
             <div class="bg-white p-8 rounded-[32px] border border-stone-100 shadow-xl">
                 <div class="flex items-center space-x-3 mb-6">
@@ -139,7 +140,10 @@
             </div>
         </div>
 
+        <!-- KOLOM KANAN: TAMBAH ITEM (PRODUK, PROJECT, GALLERY, REVIEW, ARTIKEL) & DATA MANAGER -->
         <div class="space-y-8">
+            
+            <!-- FORM TAMBAH / EDIT ITEM KOLEKSI -->
             <div class="bg-white p-6 rounded-[32px] border border-stone-100 shadow-xl">
                 <div class="flex items-center space-x-3 mb-5">
                     <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center" id="formIcon"><i class="fas fa-plus text-xs"></i></div>
@@ -154,19 +158,30 @@
                             <option value="project">Selected Projects (Nama & Gambar)</option>
                             <option value="gallery">Gallery Project (Gambar & Keterangan)</option>
                             <option value="review">Client Review (Nama, Gambar & Ulasan)</option>
+                            <option value="article">Artikel / Blog (Judul, Gambar, Ringkasan & Isi)</option>
                         </select>
                     </div>
+                    
                     <div>
                         <label id="lblTitle" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Nama Produk / Judul Konten</label>
                         <input id="itemTitle" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 font-medium text-sm">
                     </div>
+                    
                     <div>
                         <label id="lblVal" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Link Gambar (URL / ImgBB Code)</label>
                         <input id="itemVal" type="text" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs text-blue-600 font-mono">
                     </div>
+
+                    <!-- FIELD EKSTRA UNTUK ULASAN / GALLERY / SUMMARY ARTIKEL -->
                     <div id="extraContentField" class="hidden">
                         <label id="lblExtra" class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Kalimat Ulasan / Keterangan Project</label>
                         <textarea id="itemExtra" rows="3" class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs font-medium"></textarea>
+                    </div>
+
+                    <!-- FIELD KHUSUS KONTEN LENGKAP ARTIKEL -->
+                    <div id="articleFullContentField" class="hidden">
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-stone-400 mb-1">Isi Lengkap Artikel / Berita</label>
+                        <textarea id="itemArticleFull" rows="6" placeholder="Tuliskan isi artikel lengkap di sini..." class="w-full bg-stone-50 border border-stone-200 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-xs font-medium"></textarea>
                     </div>
                     
                     <div class="flex flex-col gap-2">
@@ -180,6 +195,7 @@
                 </div>
             </div>
 
+            <!-- MANAJER KOLEKSI DATA (LIST ITEM DARI DATABASE) -->
             <div class="bg-white p-6 rounded-[32px] border border-stone-100 shadow-xl flex flex-col max-h-[500px]">
                 <div class="flex items-center space-x-3 mb-4">
                     <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-500 flex items-center justify-center"><i class="fas fa-folder-open text-xs"></i></div>
@@ -193,6 +209,7 @@
         
     </main>
 
+    <!-- SCRIPT LOGIKA FORM DOM -->
     <script type="module" src="script.js"></script>
     <script>
         const typeSelect = document.getElementById('itemType');
@@ -200,10 +217,12 @@
         const lblVal = document.getElementById('lblVal');
         const extraField = document.getElementById('extraContentField');
         const lblExtra = document.getElementById('lblExtra');
+        const articleFullField = document.getElementById('articleFullContentField');
 
         typeSelect.addEventListener('change', () => {
             const val = typeSelect.value;
             extraField.classList.add('hidden');
+            articleFullField.classList.add('hidden');
             
             if (val === 'product') {
                 lblTitle.innerText = "Nama Produk Ready";
@@ -221,6 +240,12 @@
                 lblVal.innerText = "Link Foto Profil Klien / Hasil Terpasang";
                 lblExtra.innerText = "Kalimat Testimoni Ulasan Kepuasan Klien";
                 extraField.classList.remove('hidden');
+            } else if (val === 'article') {
+                lblTitle.innerText = "Judul Artikel / Blog";
+                lblVal.innerText = "Link Gambar Sampul Artikel (ImgBB URL)";
+                lblExtra.innerText = "Ringkasan Singkat Artikel (Terpampang di halaman depan)";
+                extraField.classList.remove('hidden');
+                articleFullField.classList.remove('hidden');
             }
         });
         typeSelect.dispatchEvent(new Event('change'));
