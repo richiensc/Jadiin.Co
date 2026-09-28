@@ -180,11 +180,13 @@ if (document.getElementById('displayAboutUs')) {
     const prGrid = document.getElementById('readyProductGrid'); 
     const galSlider = document.getElementById('gallerySlider');
     const rRowUtuh = document.getElementById('reviewRowUtuh'); 
+    const artGrid = document.getElementById('articleGrid'); // [REVISI]: Inisialisasi kontainer Artikel
     
     if (pGrid) pGrid.innerHTML = ""; 
     if (prGrid) prGrid.innerHTML = "";
     if (galSlider) galSlider.innerHTML = "";
     if (rRowUtuh) rRowUtuh.innerHTML = "";
+    if (artGrid) artGrid.innerHTML = ""; // [REVISI]: Reset kontainer Artikel
     
     if (snap.exists()) {
       snap.forEach((childSnap) => {
@@ -234,6 +236,21 @@ if (document.getElementById('displayAboutUs')) {
                   <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">Verified Client</span>
                 </div>
               </div>
+            </div>`;
+
+        // Kategori 5: Artikel [REVISI]: Ditambahkan logika render untuk Artikel
+        } else if (itm.type === 'article' && artGrid) {
+          artGrid.innerHTML += `
+            <div class="bg-stone-800 rounded-[32px] p-6 border border-stone-700/50 flex flex-col justify-between hover:border-yellow-400/50 transition duration-300">
+              <div>
+                <img src="${imgUrl}" class="w-full h-48 object-cover rounded-2xl mb-4" alt="${itm.title}">
+                <span class="text-[10px] font-black uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full">Artikel</span>
+                <h4 class="text-xl font-black text-white mt-3 leading-snug">${itm.title}</h4>
+                <p class="text-stone-400 text-xs mt-2 line-clamp-3">${itm.extra || ''}</p>
+              </div>
+              <button onclick="alert('${(itm.extra || '').replace(/'/g, "\\'")}')" class="mt-6 w-full py-3 bg-stone-700 hover:bg-yellow-400 hover:text-stone-900 text-white font-black uppercase text-[10px] tracking-wider rounded-xl transition duration-300">
+                Baca Selengkapnya
+              </button>
             </div>`;
         }
       });
