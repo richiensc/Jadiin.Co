@@ -1,7 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, set, onValue, push, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-// Modul Firebase Auth
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -16,20 +14,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const auth = getAuth(app); // Inisialisasi Auth
+const auth = getAuth(app);
 
 let currentEditId = null;
-
-// Menyimpan cache artikel untuk kebutuhan Modal
 let articlesCache = {};
 
-// ==========================================
-// KONTROL SYSTEM AUTHENTICATION & LOGIN STATUS
-// ==========================================
+// AUTHENTICATION
 const loginSection = document.getElementById('loginSection');
 const adminContent = document.getElementById('adminContent');
 
-// Pengecekan status login secara realtime oleh Firebase
 onAuthStateChanged(auth, (user) => {
   if (user) {
     if (loginSection) loginSection.classList.add('hidden');
@@ -40,7 +33,6 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Event Handler Tombol Login
 if (document.getElementById('btnLogin')) {
   document.getElementById('btnLogin').onclick = async () => {
     const email = document.getElementById('adminEmail').value;
@@ -57,7 +49,6 @@ if (document.getElementById('btnLogin')) {
   };
 }
 
-// Event Handler Tombol Logout
 if (document.getElementById('btnLogout')) {
   document.getElementById('btnLogout').onclick = async () => {
     if (confirm("Apakah Anda yakin ingin keluar dari Admin Dashboard?")) {
@@ -66,9 +57,6 @@ if (document.getElementById('btnLogout')) {
   };
 }
 
-// ==========================================
-// UTILITY: CLEAN URL FUNCTION
-// ==========================================
 function cleanUrl(rawUrl) {
   if (!rawUrl) return "";
   let clean = rawUrl.trim();
@@ -85,9 +73,6 @@ function cleanUrl(rawUrl) {
   return clean;
 }   
 
-// ==========================================
-// CONTROL SLIDER (MOUSE DRAG + BUTTON NAV)
-// ==========================================
 function setupSliderControls(sliderId, prevBtnId, nextBtnId) {
   const slider = document.getElementById(sliderId);
   const prevBtn = document.getElementById(prevBtnId);
@@ -116,10 +101,7 @@ function setupSliderControls(sliderId, prevBtnId, nextBtnId) {
     scrollLeft = slider.scrollLeft;
   });
 
-  slider.addEventListener('mouseleave', () => {
-    isDown = false;
-  });
-
+  slider.addEventListener('mouseleave', () => { isDown = false; });
   slider.addEventListener('mouseup', () => {
     isDown = false;
     slider.style.scrollBehavior = 'smooth'; 
@@ -139,9 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSliderControls('reviewSliderContainer', 'prevReview', 'nextReview');
 });
 
-// ==========================================
-// UTILITY: MODAL ARTIKEL PRO
-// ==========================================
+// MODAL ARTIKEL PRO (MENAMPILKAN TEKS LENGKAP)
 window.openArticleModal = (id) => {
   const item = articlesCache[id];
   if (!item) return;
@@ -154,8 +134,7 @@ window.openArticleModal = (id) => {
     document.body.appendChild(modal);
   }
 
-  // [PERBAIKAN]: Utamakan item.articleFull, jika kosong baru gunakan item.extra
-  const fullContent = item.articleFull || item.extra || 'Tidak ada isi artikel.';
+  const fullText = item.articleFull || item.extra || 'Tidak ada isi artikel.';
 
   modal.innerHTML = `
     <div class="bg-stone-900 border border-stone-700/80 rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl text-white">
@@ -166,7 +145,7 @@ window.openArticleModal = (id) => {
       <h3 class="text-2xl md:text-3xl font-black text-white mt-3 mb-4 leading-tight">${item.title}</h3>
       <img src="${cleanUrl(item.val)}" class="w-full h-64 md:h-80 object-cover rounded-2xl mb-6 border border-stone-800" alt="${item.title}">
       <div class="text-stone-300 text-sm md:text-base leading-relaxed whitespace-pre-line space-y-4">
-        ${fullContent}
+        ${fullText}
       </div>
       <div class="mt-8 pt-4 border-t border-stone-800 flex justify-end">
         <button onclick="closeArticleModal()" class="px-6 py-2.5 bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">Tutup</button>
@@ -183,15 +162,11 @@ window.closeArticleModal = () => {
   document.body.style.overflow = 'auto';
 };
 
-// ==========================================
-// 1. DISTRIBUSI REALTIME DATABASE KE INDEX (PUBLIC)
-// ==========================================
+// FETCH DATA PUBLIC
 if (document.getElementById('displayAboutUs')) {
-  
   onValue(ref(db, "web/content"), (snap) => {
     if (snap.exists()) {
       const d = snap.val();
-      
       if (document.getElementById('displayHeroTitle')) document.getElementById('displayHeroTitle').innerText = d.heroTitle || "JADIIN.CO";
       if (document.getElementById('displayAboutUs')) document.getElementById('displayAboutUs').innerText = d.aboutUs || "";
       if (document.getElementById('displayVision')) document.getElementById('displayVision').innerText = d.vision || "";
@@ -231,7 +206,7 @@ if (document.getElementById('displayAboutUs')) {
     if (rRowUtuh) rRowUtuh.innerHTML = "";
     if (artGrid) artGrid.innerHTML = "";
     
-    articlesCache = {}; // Reset cache
+    articlesCache = {};
 
     if (snap.exists()) {
       snap.forEach((childSnap) => {
@@ -239,23 +214,18 @@ if (document.getElementById('displayAboutUs')) {
         const itm = childSnap.val();
         const imgUrl = cleanUrl(itm.val);
         
-        // Kategori 1: Selected Projects
         if (itm.type === 'project' && pGrid) {
           pGrid.innerHTML += `
             <div class="rounded-3xl overflow-hidden shadow-lg border-4 border-white bg-white" data-aos="fade-up">
               <img src="${imgUrl}" class="w-full h-80 object-cover">
               <h4 class="p-6 font-black uppercase italic text-stone-800">${itm.title}</h4>
             </div>`;
-        
-        // Kategori 2: Ready Products
         } else if (itm.type === 'product' && prGrid) {
           prGrid.innerHTML += `
             <div class="bg-stone-800 p-5 rounded-[40px] border border-stone-700 shadow-md transition duration-300 hover:scale-[1.03]" data-aos="zoom-in">
               <img src="${imgUrl}" class="w-full h-40 object-cover rounded-3xl mb-4">
               <h4 class="text-center font-black uppercase text-[10px] tracking-widest text-white">${itm.title}</h4>
             </div>`;
-        
-        // Kategori 3: Gallery Project
         } else if (itm.type === 'gallery' && galSlider) {
           galSlider.innerHTML += `
             <div class="w-80 md:w-96 shrink-0 bg-white p-4 rounded-3xl border border-stone-100 shadow-md">
@@ -263,8 +233,6 @@ if (document.getElementById('displayAboutUs')) {
               <h5 class="font-black text-sm uppercase text-stone-900 tracking-wider mb-1 whitespace-normal">${itm.title}</h5>
               <p class="text-[11px] text-stone-500 font-medium whitespace-normal leading-relaxed">${itm.extra || ''}</p>
             </div>`;
-
-        // Kategori 4: Client Reviews
         } else if (itm.type === 'review' && rRowUtuh) {
           rRowUtuh.innerHTML += `
             <div class="w-[300px] md:w-[380px] bg-stone-50 p-6 md:p-8 rounded-[35px] border border-stone-100 shadow-sm flex flex-col justify-between">
@@ -282,10 +250,8 @@ if (document.getElementById('displayAboutUs')) {
                 </div>
               </div>
             </div>`;
-
-        // Kategori 5: Artikel
         } else if (itm.type === 'article' && artGrid) {
-          articlesCache[id] = itm; // Simpan ke cache
+          articlesCache[id] = itm;
           artGrid.innerHTML += `
             <div class="bg-stone-800 rounded-[32px] p-6 border border-stone-700/50 flex flex-col justify-between hover:border-yellow-400/50 transition duration-300">
               <div>
@@ -304,9 +270,7 @@ if (document.getElementById('displayAboutUs')) {
   });
 }
 
-// ==========================================
-// 2. SISTEM OPERASI CONTROL PANEL (ADMIN)
-// ==========================================
+// ADMIN PANEL OPERATIONS
 if (document.getElementById('btnSaveInfo')) {
   onValue(ref(db, "web/content"), (snap) => {
     if (snap.exists()) {
@@ -352,33 +316,29 @@ if (document.getElementById('btnSaveInfo')) {
     const type = document.getElementById('itemType').value;
     const extra = document.getElementById('itemExtra') ? document.getElementById('itemExtra').value : "";
     
-    // [PERBAIKAN]: Membaca elemen input artikel penuh (misal itemArticleFull atau textarea tambahan)
-    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
+    // Ambil input isi artikel penuh dari textarea #itemArticleFull
+    const articleFullElem = document.getElementById('itemArticleFull');
     const articleFull = articleFullElem ? articleFullElem.value : "";
 
     if (!title || !val) return alert("Harap isi Judul/Nama dan Gambar item!");
 
     try {
+      const dataToSave = {
+        type,
+        title,
+        val,
+        extra: extra || "",
+        articleFull: articleFull || extra || ""
+      };
+
       if (currentEditId) {
-        await update(ref(db, `items/${currentEditId}`), {
-          type,
-          title,
-          val,
-          extra: extra || "",
-          articleFull: articleFull || extra || "" // Menyimpan teks penuh artikel
-        });
+        await update(ref(db, `items/${currentEditId}`), dataToSave);
         alert("ITEM BERHASIL DIPERBARUI!");
         resetItemForm();
       } else {
         const newRef = push(ref(db, "items"));
-        await set(newRef, { 
-          type, 
-          title, 
-          val, 
-          extra: extra || "",
-          articleFull: articleFull || extra || "", // Menyimpan teks penuh artikel
-          createdAt: new Date().toISOString() 
-        });
+        dataToSave.createdAt = new Date().toISOString();
+        await set(newRef, dataToSave);
         alert("ITEM BERHASIL DITAMBAHKAN!");
         resetItemForm();
       }
@@ -392,7 +352,7 @@ if (document.getElementById('btnSaveInfo')) {
     document.getElementById('itemVal').value = "";
     if (document.getElementById('itemExtra')) document.getElementById('itemExtra').value = "";
     
-    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
+    const articleFullElem = document.getElementById('itemArticleFull');
     if (articleFullElem) articleFullElem.value = "";
     
     document.getElementById('formFormTitle').innerText = "Tambah Item Baru";
@@ -413,62 +373,55 @@ if (document.getElementById('btnSaveInfo')) {
         snap.forEach((childSnap) => {
           const id = childSnap.key;
           const itm = childSnap.val();
-          const safeData = JSON.stringify({
-            id: id,
-            title: itm.title || "",
-            val: itm.val || "",
-            type: itm.type || "",
-            extra: itm.extra || "",
-            articleFull: itm.articleFull || ""
-          }).replace(/"/g, '&quot;');
 
-          manager.innerHTML += `
-            <div class="bg-white p-3 rounded-xl border flex justify-between items-center mb-2 shadow-sm">
-              <div class="flex flex-col">
-                <span class="text-xs font-bold uppercase text-stone-700">${itm.title}</span>
-                <span class="text-[10px] text-pink-500 font-semibold uppercase tracking-wider">${itm.type}</span>
-              </div>
-              <div class="flex space-x-1">
-                <button onclick="triggerEditItem('${safeData}')" class="text-blue-500 hover:text-blue-700 font-black text-xs px-2 py-1">EDIT</button>
-                <button onclick="deleteItem('${id}')" class="text-red-500 hover:text-red-700 font-black text-xs px-2 py-1">HAPUS</button>
-              </div>
-            </div>`;
+          const card = document.createElement('div');
+          card.className = "bg-white p-3 rounded-xl border flex justify-between items-center mb-2 shadow-sm";
+          card.innerHTML = `
+            <div class="flex flex-col">
+              <span class="text-xs font-bold uppercase text-stone-700">${itm.title}</span>
+              <span class="text-[10px] text-pink-500 font-semibold uppercase tracking-wider">${itm.type}</span>
+            </div>
+            <div class="flex space-x-1">
+              <button class="btn-edit text-blue-500 hover:text-blue-700 font-black text-xs px-2 py-1">EDIT</button>
+              <button class="btn-delete text-red-500 hover:text-red-700 font-black text-xs px-2 py-1">HAPUS</button>
+            </div>
+          `;
+
+          card.querySelector('.btn-edit').onclick = () => {
+            currentEditId = id;
+            document.getElementById('itemType').value = itm.type || "";
+            document.getElementById('itemType').dispatchEvent(new Event('change')); 
+            document.getElementById('itemType').disabled = true; 
+            
+            document.getElementById('itemTitle').value = itm.title || "";
+            document.getElementById('itemVal').value = itm.val || ""; 
+            if (document.getElementById('itemExtra')) {
+              document.getElementById('itemExtra').value = itm.extra || "";
+            }
+            
+            const articleFullElem = document.getElementById('itemArticleFull');
+            if (articleFullElem) {
+              articleFullElem.value = itm.articleFull || itm.extra || "";
+            }
+
+            document.getElementById('formFormTitle').innerText = "Edit/Ganti Gambar Item";
+            document.getElementById('formIcon').innerHTML = `<i class="fas fa-edit text-xs"></i>`;
+            document.getElementById('btnAddItem').innerHTML = `<i class="fas fa-save mr-1"></i> Simpan Perubahan`;
+            if (document.getElementById('btnCancelEdit')) document.getElementById('btnCancelEdit').classList.remove('hidden');
+          };
+
+          card.querySelector('.btn-delete').onclick = async () => {
+            if (confirm("Hapus item secara permanen?")) {
+              try {
+                await remove(ref(db, `items/${id}`));
+                if(currentEditId === id) resetItemForm();
+              } catch (e) { alert("Gagal menghapus: " + e.message); }
+            }
+          };
+
+          manager.appendChild(card);
         });
       }
     }
   });
-
-  window.triggerEditItem = (jsonString) => {
-    const data = JSON.parse(jsonString.replace(/&quot;/g, '"'));
-    currentEditId = data.id;
-
-    document.getElementById('itemType').value = data.type;
-    document.getElementById('itemType').dispatchEvent(new Event('change')); 
-    document.getElementById('itemType').disabled = true; 
-    
-    document.getElementById('itemTitle').value = data.title;
-    document.getElementById('itemVal').value = data.val; 
-    if (document.getElementById('itemExtra')) {
-      document.getElementById('itemExtra').value = data.extra;
-    }
-    
-    const articleFullElem = document.getElementById('itemArticleFull') || document.getElementById('itemFullContent');
-    if (articleFullElem) {
-      articleFullElem.value = data.articleFull || data.extra || "";
-    }
-
-    document.getElementById('formFormTitle').innerText = "Edit/Ganti Gambar Item";
-    document.getElementById('formIcon').innerHTML = `<i class="fas fa-edit text-xs"></i>`;
-    document.getElementById('btnAddItem').innerHTML = `<i class="fas fa-save mr-1"></i> Simpan Perubahan`;
-    if (document.getElementById('btnCancelEdit')) document.getElementById('btnCancelEdit').classList.remove('hidden');
-  };
-
-  window.deleteItem = async (id) => {
-    if (confirm("Hapus item secara permanen?")) {
-      try {
-        await remove(ref(db, `items/${id}`));
-        if(currentEditId === id) resetItemForm();
-      } catch (e) { alert("Gagal menghapus: " + e.message); }
-    }
-  };
 }
