@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSliderControls('reviewSliderContainer', 'prevReview', 'nextReview');
 });
 
-// MODAL ARTIKEL PRO (MENAMPILKAN TEKS LENGKAP)
+// MODAL ARTIKEL REVISI (LEBIH LEBAR & MOBILE RESPONSIVE)
 window.openArticleModal = (id) => {
   const item = articlesCache[id];
   if (!item) return;
@@ -130,28 +130,50 @@ window.openArticleModal = (id) => {
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'articleModal';
-    modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300';
+    modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-md z-[200] flex items-center justify-center p-3 sm:p-6 transition-opacity duration-300';
     document.body.appendChild(modal);
   }
 
   const fullText = item.articleFull || item.extra || 'Tidak ada isi artikel.';
 
   modal.innerHTML = `
-    <div class="bg-stone-900 border border-stone-700/80 rounded-[32px] max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl text-white">
-      <button onclick="closeArticleModal()" class="absolute top-5 right-5 w-10 h-10 bg-stone-800 hover:bg-yellow-400 hover:text-stone-900 text-stone-300 rounded-full flex items-center justify-center font-bold text-lg transition duration-200">
+    <div class="bg-stone-900 border border-stone-700/80 rounded-2xl md:rounded-[32px] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-8 md:p-10 relative shadow-2xl text-white my-auto">
+      
+      <!-- Tombol Close -->
+      <button onclick="closeArticleModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 sm:w-11 sm:h-11 bg-stone-800 hover:bg-yellow-400 hover:text-stone-900 text-stone-300 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl transition duration-200 z-10 shadow-lg">
         &times;
       </button>
-      <span class="text-[10px] font-black uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full">Artikel</span>
-      <h3 class="text-2xl md:text-3xl font-black text-white mt-3 mb-4 leading-tight">${item.title}</h3>
-      <img src="${cleanUrl(item.val)}" class="w-full h-64 md:h-80 object-cover rounded-2xl mb-6 border border-stone-800" alt="${item.title}">
-      <div class="text-stone-300 text-sm md:text-base leading-relaxed whitespace-pre-line space-y-4">
+
+      <!-- Badge Artikel -->
+      <span class="inline-block text-[10px] sm:text-xs font-black uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-3 py-1.5 rounded-full mb-3">
+        Artikel
+      </span>
+
+      <!-- Judul Artikel -->
+      <h3 class="text-xl sm:text-3xl lg:text-4xl font-black text-white mb-5 leading-tight pr-10">
+        ${item.title}
+      </h3>
+
+      <!-- Container Gambar Artikel -->
+      <div class="w-full mb-6 sm:mb-8 overflow-hidden rounded-xl sm:rounded-2xl border border-stone-800 bg-stone-950">
+        <img src="${cleanUrl(item.val)}" class="w-full max-h-[320px] sm:max-h-[450px] object-cover object-center" alt="${item.title}">
+      </div>
+
+      <!-- Content / Isi Artikel -->
+      <div class="text-stone-300 text-sm sm:text-base leading-relaxed sm:leading-loose whitespace-pre-line space-y-4 font-normal">
         ${fullText}
       </div>
-      <div class="mt-8 pt-4 border-t border-stone-800 flex justify-end">
-        <button onclick="closeArticleModal()" class="px-6 py-2.5 bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition">Tutup</button>
+
+      <!-- Footer Modal / Tombol Tutup Bawah -->
+      <div class="mt-8 pt-5 border-t border-stone-800 flex justify-end">
+        <button onclick="closeArticleModal()" class="w-full sm:w-auto px-8 py-3 bg-stone-800 hover:bg-yellow-400 hover:text-stone-900 text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition duration-200">
+          Tutup Artikel
+        </button>
       </div>
+
     </div>
   `;
+
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 };
@@ -316,7 +338,6 @@ if (document.getElementById('btnSaveInfo')) {
     const type = document.getElementById('itemType').value;
     const extra = document.getElementById('itemExtra') ? document.getElementById('itemExtra').value : "";
     
-    // Ambil input isi artikel penuh dari textarea #itemArticleFull
     const articleFullElem = document.getElementById('itemArticleFull');
     const articleFull = articleFullElem ? articleFullElem.value : "";
 
